@@ -1,0 +1,68 @@
+<template>
+    <div class="todo-wrapper">
+    <lightning-card title="To Do List">
+        <hr />
+        <div class="slds-p-around_medium">
+            <lightning-layout vertical-align="center" multiple-rows>
+                <lightning-layout-item size="5" class="slds-text-align_left">
+                    <lightning-input name="taskName" onchange={handleInputChange} onclick={handleFocus} placeholder="Search..."></lightning-input>
+                    <template if:true={showDropdown}>
+                        <div class="slds-box slds-m-top_small slds-scrollable_y" style="max-height: 300px;" onmousedown={handleInternalClick}>
+                            <template for:each={tasks} for:item="task">
+                                <div key={task.Id}>
+                                    <lightning-input
+                                        type="checkbox"
+                                        label={task.Subject}
+                                        data-id={task.Id}
+                                        onchange={handleCheckboxChange}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                            <template if:false={tasks.length}>
+                                <p class="slds-text-color_weak">No tasks found.</p>
+                            </template>
+                        </div>
+                    </template>
+                </lightning-layout-item>
+                <lightning-layout-item size="2" class="slds-text-align_right">
+                    <div style="margin-top: 17px;">
+                        <lightning-button variant="brand" label="Add Task" title="Add Task" onclick={handleClick} onmousedown={handleInternalClick}></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <template if:true={addedTasks}>
+            <div class="slds-m-top_medium" style = "margin-left: 10px">
+                <h3 class="slds-text-heading_small"><strong>To Do Items:</strong></h3>
+                <template for:each={addedTasks} for:item="task">
+                    <div key={task.Id} class="slds-box slds-m-top_x-small">
+                        <lightning-layout vertical-align="center" multiple-rows>
+                            <lightning-layout-item size="5" class="slds-text-align_left">
+                                <div class="slds-text-link"
+                                style="cursor:pointer;"
+                                data-id={task.Id}
+                                onclick={navigateToRecord}>
+                                <p class={task.strikeClass}><strong>{task.Subject}</strong></p>
+                                </div>
+                    </lightning-layout-item>
+                            <lightning-layout-item size="6" class="slds-text-align_right">
+                                <div class="slds-grid slds-grid_align-end slds-grid_vertical-align-center" style="gap: 1.75rem;">
+                        <lightning-button-icon icon-name="action:delete" alternative-text="Delete" title="Delete" onclick={handleRemove} data-id={task.Id}></lightning-button-icon>
+                        <div class="slds-grid slds-grid_align-start slds-gutters">
+                            <lightning-input
+                                type="checkbox"
+                                data-id={task.Id}
+                                onchange={handleStrikeCheckboxChange}
+                                class="task-check">
+                            </lightning-input>
+                            </div>
+                            </div>
+                    </lightning-layout-item>
+                    </lightning-layout>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+    </div>
+</template>

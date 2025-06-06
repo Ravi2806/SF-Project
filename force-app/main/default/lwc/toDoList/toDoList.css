@@ -1,0 +1,10 @@
+.strike-through {
+    text-decoration: line-through;
+}
+.todo-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #F9F9F9;
+    border-radius: 8px;
+}

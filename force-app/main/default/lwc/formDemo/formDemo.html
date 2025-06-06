@@ -1,0 +1,41 @@
+<template>
+    <lightning-card  title="Personal Information Form">
+            <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Name"  name="name" value={name} onchange={handleInputChange}></lightning-input>
+        </div>
+       <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Email" name="email" value={email} onchange={handleInputChange}></lightning-input>
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="City"  name="city"  value={city} onchange={handleInputChange}></lightning-input>
+        </div>
+        <div class="slds-align_absolute-center" style="height:5rem">
+             <lightning-button variant="brand" label="Save" title="Primary action" onclick={handleClick} disabled={isDisabled} class="slds-m-left_x-small">    
+             </lightning-button>
+        </div>
+        </lightning-card>
+        <template if:true={formData}>
+        <lightning-card title="Submitted Records" icon-name="custom:custom63">
+            <div class="slds-p-around_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={formData} for:item="record">
+                            <tr key={record.Id}>
+                                <td>{record.Name}</td>
+                                <td>{record.Email__c}</td>
+                                <td>{record.City__c}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </template>
+</template>
